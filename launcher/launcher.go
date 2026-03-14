@@ -41,6 +41,12 @@ func (l *Launcher) Launch(versionID string, username string, serverAddress strin
 		return fmt.Errorf("failed to get version info: %w", err)
 	}
 
+	versionGameDir := l.config.GetVersionGameDir(versionID)
+	if err := os.MkdirAll(versionGameDir, 0755); err != nil {
+		return fmt.Errorf("failed to create version game directory: %w", err)
+	}
+	logger.Info("Using version game directory: %s", versionGameDir)
+
 	javaVersion := downloader.GetJavaVersion(versionInfo)
 	if err := util.ValidateJavaVersion(l.config.JavaPath, javaVersion); err != nil {
 		logger.Warn("Java validation warning: %v", err)
@@ -94,7 +100,7 @@ func (l *Launcher) buildLaunchConfig(versionInfo *downloader.VersionInfo, classp
 	cfg.MainClass = downloader.GetMainClass(versionInfo)
 	cfg.Classpath = classpath
 
-	cfg.GameDir = l.config.GameDir
+	cfg.GameDir = l.config.GetVersionGameDir(versionInfo.ID)
 	cfg.AssetsDir = l.config.GetAssetsDir()
 	cfg.AssetsIndex = downloader.GetAssetIndex(versionInfo)
 	cfg.Version = versionInfo.ID

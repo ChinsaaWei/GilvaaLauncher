@@ -7,21 +7,22 @@ import (
 )
 
 type Config struct {
-	JavaPath        string
-	MinMemory       int
-	MaxMemory       int
-	NewGenMemory    int
-	Username        string
-	UUID            string
-	AccessToken     string
-	Width           int
-	Height          int
-	FullScreen      bool
-	GameDir         string
-	WorkingDir      string
-	LogDir          string
-	DownloadDir     string
-	LauncherVersion string
+	JavaPath         string
+	MinMemory        int
+	MaxMemory        int
+	NewGenMemory     int
+	Username         string
+	UUID             string
+	AccessToken      string
+	Width            int
+	Height           int
+	FullScreen       bool
+	GameDir          string
+	WorkingDir       string
+	LogDir           string
+	DownloadDir      string
+	LauncherVersion  string
+	VersionIsolation bool // 版本隔离：每个版本使用独立的游戏目录
 }
 
 func NewConfig() *Config {
@@ -38,21 +39,22 @@ func NewConfig() *Config {
 	downloadDir := filepath.Join(workingDir, "downloads")
 
 	return &Config{
-		JavaPath:        "java",
-		MinMemory:       1024,
-		MaxMemory:       4096,
-		NewGenMemory:    256,
-		Username:        "Player",
-		UUID:            "00000000-0000-0000-0000-000000000000",
-		AccessToken:     "offline",
-		Width:           1920,
-		Height:          1080,
-		FullScreen:      false,
-		GameDir:         gameDir,
-		WorkingDir:      workingDir,
-		LogDir:          logDir,
-		DownloadDir:     downloadDir,
-		LauncherVersion: "1.0.0",
+		JavaPath:         "java",
+		MinMemory:        1024,
+		MaxMemory:        4096,
+		NewGenMemory:     256,
+		Username:         "Player",
+		UUID:             "00000000-0000-0000-0000-000000000000",
+		AccessToken:      "offline",
+		Width:            1920,
+		Height:           1080,
+		FullScreen:       false,
+		GameDir:          gameDir,
+		WorkingDir:       workingDir,
+		LogDir:           logDir,
+		DownloadDir:      downloadDir,
+		LauncherVersion:  "1.0.0",
+		VersionIsolation: true,
 	}
 }
 
@@ -116,4 +118,13 @@ func (c *Config) GetLibrariesDir() string {
 
 func (c *Config) GetAssetsDir() string {
 	return filepath.Join(c.GameDir, "assets")
+}
+
+// GetVersionGameDir 获取指定版本的游戏目录
+// 如果启用了版本隔离，返回版本特定的目录；否则返回全局游戏目录
+func (c *Config) GetVersionGameDir(version string) string {
+	if c.VersionIsolation {
+		return filepath.Join(c.GameDir, "versions", version)
+	}
+	return c.GameDir
 }
