@@ -61,7 +61,7 @@ func (c *LaunchConfig) BuildClasspath() string {
 	for i, p := range c.Classpath {
 		paths[i] = filepath.ToSlash(p)
 	}
-	return strings.Join(paths, ";")
+	return strings.Join(paths, string(filepath.ListSeparator))
 }
 
 func (c *LaunchConfig) BuildJVMArgs() []string {
