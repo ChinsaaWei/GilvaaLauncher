@@ -77,12 +77,6 @@ mclauncher info 1.20.4
 mclauncher version uninstall 1.20.4
 ```
 
-#### 准备版本（下载资源但不启动）
-
-```bash
-mclauncher prepare 1.20.4
-```
-
 #### 启动游戏
 
 ```bash

@@ -140,7 +140,22 @@ func (m *Manager) InstallVersion(versionID string) (*downloader.VersionInfo, err
 		return nil, fmt.Errorf("failed to download version: %w", err)
 	}
 
-	logger.Info("Version %s installed successfully", versionID)
+	// Download assets and libraries
+	dl := downloader.NewDownloader()
+	assetsDownloader := downloader.NewAssetsDownloader(dl, filepath.Join(m.gameDir, "assets"))
+	librariesDownloader := downloader.NewLibrariesDownloader(dl, filepath.Join(m.gameDir, "libraries"))
+
+	if err := assetsDownloader.DownloadAssets(versionInfo.AssetIndex, true); err != nil {
+		return nil, fmt.Errorf("failed to download assets: %w", err)
+	}
+
+	nativesDir := filepath.Join(m.gameDir, "versions", versionID, "natives")
+	libraries := downloader.GetLibraries(versionInfo)
+	if _, err := librariesDownloader.DownloadLibraries(libraries, nativesDir); err != nil {
+		return nil, fmt.Errorf("failed to download libraries: %w", err)
+	}
+
+	logger.Info("Version %s installed successfully with all assets and libraries", versionID)
 	return versionInfo, nil
 }
 

@@ -188,25 +188,6 @@ var launchCmd = &cobra.Command{
 	},
 }
 
-var prepareCmd = &cobra.Command{
-	Use:   "prepare <version>",
-	Short: "Prepare a Minecraft version (download without launching)",
-	Args:  cobra.ExactArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		versionID := args[0]
-
-		cfg := loadConfig()
-		mlm := modloader.NewModLoaderManager()
-		l := launcher.NewLauncher(cfg, nil, mlm)
-
-		if err := l.PrepareVersion(versionID); err != nil {
-			logger.Fatal("Failed to prepare version %s: %v", versionID, err)
-		}
-
-		fmt.Printf("Version %s prepared successfully\n", versionID)
-	},
-}
-
 var javaCmd = &cobra.Command{
 	Use:   "java",
 	Short: "Java management commands",
@@ -317,7 +298,7 @@ func init() {
 
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(launchCmd)
-	rootCmd.AddCommand(prepareCmd)
+
 	rootCmd.AddCommand(javaCmd)
 	rootCmd.AddCommand(infoCmd)
 	rootCmd.AddCommand(commandCmd)

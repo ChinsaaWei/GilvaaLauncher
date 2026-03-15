@@ -136,38 +136,7 @@ func (l *Launcher) buildCommand(cfg *LaunchConfig) *exec.Cmd {
 	return cmd
 }
 
-func (l *Launcher) PrepareVersion(versionID string) error {
-	logger.Info("Preparing version: %s", versionID)
 
-	dl := downloader.NewDownloader()
-	vd := downloader.NewVersionDownloader(dl, l.config.DownloadDir)
-	vm := version.NewManager(l.config.GameDir, vd)
-
-	if _, err := vm.InstallVersion(versionID); err != nil {
-		return fmt.Errorf("failed to download version: %w", err)
-	}
-
-	versionInfo, err := vm.GetVersionInfo(versionID)
-	if err != nil {
-		return fmt.Errorf("failed to get version info: %w", err)
-	}
-
-	assetsDownloader := downloader.NewAssetsDownloader(dl, l.config.GetAssetsDir())
-	librariesDownloader := downloader.NewLibrariesDownloader(dl, l.config.GetLibrariesDir())
-
-	if err := assetsDownloader.DownloadAssets(versionInfo.AssetIndex, true); err != nil {
-		return fmt.Errorf("failed to download assets: %w", err)
-	}
-
-	nativesDir := l.config.GetNativesDir(versionID)
-	libraries := downloader.GetLibraries(versionInfo)
-	if _, err := librariesDownloader.DownloadLibraries(libraries, nativesDir); err != nil {
-		return fmt.Errorf("failed to download libraries: %w", err)
-	}
-
-	logger.Info("Version %s prepared successfully", versionID)
-	return nil
-}
 
 func (l *Launcher) GetLaunchCommand(versionID, username string, serverAddress string, serverPort int) ([]string, error) {
 	dl := downloader.NewDownloader()
