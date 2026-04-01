@@ -6,13 +6,13 @@ import (
 	"runtime"
 	"strings"
 
-	"mclauncher/config"
-	"mclauncher/downloader"
-	"mclauncher/launcher"
-	"mclauncher/logger"
-	"mclauncher/modloader"
-	"mclauncher/util"
-	"mclauncher/version"
+	"GilvaaLauncher/config"
+	"GilvaaLauncher/downloader"
+	"GilvaaLauncher/launcher"
+	"GilvaaLauncher/logger"
+	"GilvaaLauncher/modloader"
+	"GilvaaLauncher/util"
+	"GilvaaLauncher/version"
 
 	"github.com/spf13/cobra"
 )
@@ -33,7 +33,7 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "mclauncher",
+	Use:   "GilvaaLauncher",
 	Short: "Minecraft Launcher - Command Line Tool",
 	Long:  `A command-line Minecraft launcher that supports version management, downloading, and launching Minecraft.`,
 }

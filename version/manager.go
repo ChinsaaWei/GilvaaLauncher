@@ -9,8 +9,8 @@ import (
 	"strings"
 	"sync"
 
-	"mclauncher/downloader"
-	"mclauncher/logger"
+	"GilvaaLauncher/downloader"
+	"GilvaaLauncher/logger"
 )
 
 type Manager struct {

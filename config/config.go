@@ -34,7 +34,7 @@ func NewConfig() *Config {
 
 	// 游戏目录放在可执行文件同目录下的.minecraft文件夹
 	gameDir := filepath.Join(execDir, ".minecraft")
-	workingDir := filepath.Join(execDir, ".mclauncher")
+	workingDir := filepath.Join(execDir, ".GilvaaLauncher")
 	logDir := filepath.Join(workingDir, "logs")
 	downloadDir := filepath.Join(workingDir, "downloads")
 

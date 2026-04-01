@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"mclauncher/logger"
+	"GilvaaLauncher/logger"
 )
 
 type DownloadProgress struct {

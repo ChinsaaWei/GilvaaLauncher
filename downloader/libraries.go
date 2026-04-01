@@ -9,7 +9,7 @@ import (
 	"runtime"
 	"strings"
 
-	"mclauncher/logger"
+	"GilvaaLauncher/logger"
 )
 
 type LibrariesDownloader struct {

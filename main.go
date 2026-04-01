@@ -1,8 +1,8 @@
 package main
 
 import (
-	"mclauncher/cmd"
-	"mclauncher/logger"
+	"GilvaaLauncher/cmd"
+	"GilvaaLauncher/logger"
 )
 
 func main() {

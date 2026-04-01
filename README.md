@@ -16,7 +16,7 @@
 ### 编译
 
 ```bash
-go build -o mclauncher.exe
+go build -o GilvaaLauncher.exe
 ```
 
 ### 依赖
@@ -31,57 +31,57 @@ go build -o mclauncher.exe
 #### 查看帮助
 
 ```bash
-mclauncher --help
+GilvaaLauncher --help
 ```
 
 #### 列出可用版本
 
 ```bash
 # 列出所有版本
-mclauncher version list
+GilvaaLauncher version list
 
 # 只列出release版本
-mclauncher version list release
+GilvaaLauncher version list release
 
 # 只列出snapshot版本
-mclauncher version list snapshot
+GilvaaLauncher version list snapshot
 ```
 
 #### 搜索版本
 
 ```bash
-mclauncher version search 1.20
+GilvaaLauncher version search 1.20
 ```
 
 #### 安装版本
 
 ```bash
-mclauncher version install 1.20.4
+GilvaaLauncher version install 1.20.4
 ```
 
 #### 查看已安装版本
 
 ```bash
-mclauncher version installed
+GilvaaLauncher version installed
 ```
 
 #### 查看版本信息
 
 ```bash
-mclauncher info 1.20.4
+GilvaaLauncher info 1.20.4
 ```
 
 #### 卸载版本
 
 ```bash
-mclauncher version uninstall 1.20.4
+GilvaaLauncher version uninstall 1.20.4
 ```
 
 #### 启动游戏
 
 ```bash
 # 基本启动
-mclauncher launch 1.20.4
+GilvaaLauncher launch 1.20.4
 
 # 指定用户名
 mclauncher launch 1.20.4 MyUsername
@@ -94,7 +94,7 @@ mclauncher launch 1.20.4 --server mc.hypixel.net --port 25565
 
 ```bash
 # 列出已安装的Java版本
-mclauncher java list
+GilvaaLauncher java list
 ```
 
 ### 高级选项
@@ -175,8 +175,8 @@ Launcher/
 启动器会在以下位置创建配置和日志：
 
 - Windows: `%APPDATA%\.minecraft`
-- 工作目录: `~/.mclauncher`
-- 日志文件: `~/.mclauncher/logs/launcher.log`
+- 工作目录: `~/.GilvaaLauncher`
+- 日志文件: `~/.GilvaaLauncher/logs/launcher.log`
 
 ## 注意事项
 

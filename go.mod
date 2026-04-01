@@ -1,4 +1,4 @@
-module mclauncher
+module GilvaaLauncher
 
 go 1.25.0
 

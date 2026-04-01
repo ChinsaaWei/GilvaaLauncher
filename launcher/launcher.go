@@ -5,12 +5,12 @@ import (
 	"os"
 	"os/exec"
 
-	"mclauncher/config"
-	"mclauncher/downloader"
-	"mclauncher/logger"
-	"mclauncher/modloader"
-	"mclauncher/util"
-	"mclauncher/version"
+	"GilvaaLauncher/config"
+	"GilvaaLauncher/downloader"
+	"GilvaaLauncher/logger"
+	"GilvaaLauncher/modloader"
+	"GilvaaLauncher/util"
+	"GilvaaLauncher/version"
 )
 
 type Launcher struct {
@@ -119,7 +119,7 @@ func (l *Launcher) buildLaunchConfig(versionInfo *downloader.VersionInfo, classp
 	cfg.ServerAddress = serverAddress
 	cfg.ServerPort = serverPort
 
-	cfg.LauncherBrand = "mclauncher"
+	cfg.LauncherBrand = "GilvaaLauncher"
 	cfg.LauncherVersion = l.config.LauncherVersion
 
 	cfg.SetSystemProperty("fml.ignoreInvalidMinecraftCertificates", "true")
@@ -135,8 +135,6 @@ func (l *Launcher) buildCommand(cfg *LaunchConfig) *exec.Cmd {
 
 	return cmd
 }
-
-
 
 func (l *Launcher) GetLaunchCommand(versionID, username string, serverAddress string, serverPort int) ([]string, error) {
 	dl := downloader.NewDownloader()
