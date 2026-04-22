@@ -2,7 +2,7 @@ package main
 
 import (
 	"GilvaaLauncher/cmd"
-	"GilvaaLauncher/logger"
+	"github.com/ChinsaaWei/HiraaLib/logger"
 )
 
 func main() {

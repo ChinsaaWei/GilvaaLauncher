@@ -1,4 +1,4 @@
-# Minecraft Launcher - Command Line Tool
+# Gilvaa Launcher
 
 一个功能完整的Minecraft命令行启动器，支持版本管理、下载和启动Minecraft。
 
@@ -84,10 +84,10 @@ GilvaaLauncher version uninstall 1.20.4
 GilvaaLauncher launch 1.20.4
 
 # 指定用户名
-mclauncher launch 1.20.4 MyUsername
+GilvaaLauncher launch 1.20.4 MyUsername
 
 # 连接到服务器
-mclauncher launch 1.20.4 --server mc.hypixel.net --port 25565
+GilvaaLauncher launch 1.20.4 --server mc.hypixel.net --port 25565
 ```
 
 #### Java管理
@@ -115,19 +115,19 @@ GilvaaLauncher java list
 
 ```bash
 # 使用4GB内存启动
-mclauncher launch 1.20.4 --memory 4G
-
+GilvaaLauncher launch 1.20.4 --memory 4G
+    
 # 使用特定Java版本
-mclauncher launch 1.20.4 --java "C:\Program Files\Java\jdk-17\bin\java.exe"
+GilvaaLauncher launch 1.20.4 --java "C:\Program Files\Java\jdk-17\bin\java.exe"
 
 # 自定义游戏目录
-mclauncher launch 1.20.4 --game-dir "D:\Minecraft"
+GilvaaLauncher launch 1.20.4 --game-dir "D:\Minecraft"
 
 # 全屏模式
-mclauncher launch 1.20.4 --fullscreen
+GilvaaLauncher launch 1.20.4 --fullscreen
 
 # 自定义窗口大小
-mclauncher launch 1.20.4 --width 1280 --height 720
+GilvaaLauncher launch 1.20.4 --width 1280 --height 720
 ```
 
 ## 项目结构

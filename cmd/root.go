@@ -6,13 +6,13 @@ import (
 	"runtime"
 	"strings"
 
-	"GilvaaLauncher/config"
-	"GilvaaLauncher/downloader"
-	"GilvaaLauncher/launcher"
-	"GilvaaLauncher/logger"
-	"GilvaaLauncher/modloader"
-	"GilvaaLauncher/util"
-	"GilvaaLauncher/version"
+	"github.com/ChinsaaWei/HiraaLib/config"
+	"github.com/ChinsaaWei/HiraaLib/download"
+	"github.com/ChinsaaWei/HiraaLib/launch"
+	"github.com/ChinsaaWei/HiraaLib/logger"
+	"github.com/ChinsaaWei/HiraaLib/modloader"
+	"github.com/ChinsaaWei/HiraaLib/util"
+	"github.com/ChinsaaWei/HiraaLib/version"
 
 	"github.com/spf13/cobra"
 )
@@ -54,8 +54,8 @@ var listCmd = &cobra.Command{
 		}
 
 		cfg := loadConfig()
-		dl := downloader.NewDownloader()
-		vd := downloader.NewVersionDownloader(dl, cfg.DownloadDir)
+		dl := download.NewDownloader()
+		vd := download.NewVersionDownloader(dl, cfg.DownloadDir)
 		vm := version.NewManager(cfg.GameDir, vd)
 
 		versions, err := vm.ListAvailableVersions(versionType)
@@ -106,8 +106,8 @@ var installCmd = &cobra.Command{
 		versionID := args[0]
 
 		cfg := loadConfig()
-		dl := downloader.NewDownloader()
-		vd := downloader.NewVersionDownloader(dl, cfg.DownloadDir)
+		dl := download.NewDownloader()
+		vd := download.NewVersionDownloader(dl, cfg.DownloadDir)
 		vm := version.NewManager(cfg.GameDir, vd)
 
 		if _, err := vm.InstallVersion(versionID); err != nil {
@@ -144,8 +144,8 @@ var searchCmd = &cobra.Command{
 		query := args[0]
 
 		cfg := loadConfig()
-		dl := downloader.NewDownloader()
-		vd := downloader.NewVersionDownloader(dl, cfg.DownloadDir)
+		dl := download.NewDownloader()
+		vd := download.NewVersionDownloader(dl, cfg.DownloadDir)
 		vm := version.NewManager(cfg.GameDir, vd)
 
 		versions, err := vm.SearchVersions(query)
@@ -180,7 +180,7 @@ var launchCmd = &cobra.Command{
 		cfg.Username = user
 
 		mlm := modloader.NewModLoaderManager()
-		l := launcher.NewLauncher(cfg, nil, mlm)
+		l := launch.NewLauncher(cfg, nil, mlm)
 
 		if err := l.Launch(versionID, user, serverAddr, serverPort); err != nil {
 			logger.Fatal("Failed to launch Minecraft: %v", err)
@@ -270,7 +270,7 @@ var commandCmd = &cobra.Command{
 		cfg.Username = user
 
 		mlm := modloader.NewModLoaderManager()
-		l := launcher.NewLauncher(cfg, nil, mlm)
+		l := launch.NewLauncher(cfg, nil, mlm)
 
 		cmdArgs, err := l.GetLaunchCommand(versionID, user, serverAddr, serverPort)
 		if err != nil {
