@@ -6,6 +6,8 @@ import (
 	"runtime"
 	"strings"
 
+	"GilvaaLauncher/tui"
+
 	"github.com/ChinsaaWei/HiraaLib/config"
 	"github.com/ChinsaaWei/HiraaLib/logger"
 
@@ -27,6 +29,8 @@ var (
 	serverPort int
 )
 
+var loggerInitialized bool
+
 var rootCmd = &cobra.Command{
 	Use:   "GilvaaLauncher",
 	Short: "Minecraft Launcher - Command Line Tool",
@@ -41,8 +45,8 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&memory, "memory", "4G", "memory allocation (e.g., 2G, 4G)")
 	rootCmd.PersistentFlags().StringVar(&gameDir, "game-dir", "", "Minecraft game directory")
 	rootCmd.PersistentFlags().StringVarP(&username, "username", "u", "Player", "username")
-	rootCmd.PersistentFlags().IntVar(&width, "width", 1920, "window width")
-	rootCmd.PersistentFlags().IntVar(&height, "height", 1080, "window height")
+	rootCmd.PersistentFlags().IntVar(&width, "width", 1920, "window width (min: 800, max: 3840)")
+	rootCmd.PersistentFlags().IntVar(&height, "height", 1080, "window height (min: 600, max: 2160)")
 	rootCmd.PersistentFlags().BoolVar(&fullScreen, "fullscreen", false, "fullscreen mode")
 	rootCmd.PersistentFlags().StringVar(&serverAddr, "server", "", "server address")
 	rootCmd.PersistentFlags().IntVar(&serverPort, "port", 25565, "server port")
@@ -55,11 +59,30 @@ func init() {
 }
 
 func Execute() error {
-	if len(os.Args) < 2 {
-		StartTUI()
-		return nil
-	}
 	return rootCmd.Execute()
+}
+
+func StartTUI() {
+	tui.Start()
+}
+
+func LoggerEnabled() bool {
+	return loggerInitialized
+}
+
+func CloseLogger() {
+	if loggerInitialized {
+		logger.Close()
+	}
+}
+
+func FatalLog(format string, args ...interface{}) {
+	if loggerInitialized {
+		logger.Fatal(format, args...)
+	} else {
+		fmt.Fprintf(os.Stderr, format+"\n", args...)
+		os.Exit(1)
+	}
 }
 
 func InitLogger() {
@@ -86,6 +109,7 @@ func InitLogger() {
 		fmt.Fprintf(os.Stderr, "Failed to initialize logger: %v\n", err)
 		os.Exit(1)
 	}
+	loggerInitialized = true
 
 	logger.Info("Minecraft Launcher v%s starting...", cfg.LauncherVersion)
 	logger.Info("OS: %s %s", runtime.GOOS, runtime.GOARCH)

@@ -2,14 +2,23 @@ package main
 
 import (
 	"GilvaaLauncher/cmd"
-	"github.com/ChinsaaWei/HiraaLib/logger"
+	"os"
 )
 
 func main() {
+	if len(os.Args) < 2 {
+		cmd.StartTUI()
+		return
+	}
+
 	cmd.InitLogger()
-	defer logger.Close()
+	defer func() {
+		if cmd.LoggerEnabled() {
+			cmd.CloseLogger()
+		}
+	}()
 
 	if err := cmd.Execute(); err != nil {
-		logger.Fatal("%v", err)
+		cmd.FatalLog("%v", err)
 	}
 }
